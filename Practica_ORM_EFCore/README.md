@@ -26,6 +26,15 @@ Práctica de mantenimiento de productos de la Librería y Papelería Segovia con
 
 Para comprobar la concurrencia, abrir dos instancias, seleccionar el mismo producto en ambas y actualizar primero en una y después en la otra. La segunda debe informar el conflicto y volver a cargar los datos.
 
+## Pruebas realizadas
+
+- Carga de las cuatro categorías y los seis productos de ejemplo.
+- Validación del nombre vacío, creación, búsqueda y actualización desde el formulario.
+- Comprobación de la eliminación con EF Core y del control de versión al actualizar y eliminar.
+- Conflicto de actualización entre dos ventanas: se mostró el aviso y se conservó el primer cambio.
+
+Los registros temporales de prueba se retiraron. La base conserva los seis productos originales con sus precios, existencias y versión iniciales.
+
 ## Entrega
 
 Se conserva bin/Debug como solicita la guía. Antes de compilar la versión que se sube, dejar Pwd=SU_CONTRASEÑA en ConexionBD.vb.
