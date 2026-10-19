@@ -5,7 +5,7 @@ Imports MySqlConnector
 Module ConexionBD
 
     Public ReadOnly CadenaConexion As String =
-        "Server=localhost;Port=3306;Database=reportes_pae;Uid=root;Pwd=TU_CLAVE;"
+        "Server=localhost;Port=3306;Database=reportes_pae;Uid=root;Pwd=1234;"
 
     Public Function ObtenerConexion() As MySqlConnection
         Return New MySqlConnection(CadenaConexion)
