@@ -15,164 +15,260 @@ Partial Class FrmProductos
 
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.txtBuscar = New System.Windows.Forms.TextBox()
-        Me.btnBuscar = New System.Windows.Forms.Button()
-        Me.dgvProductos = New System.Windows.Forms.DataGridView()
-        Me.txtNombre = New System.Windows.Forms.TextBox()
-        Me.cboCategoria = New System.Windows.Forms.ComboBox()
-        Me.nudPrecio = New System.Windows.Forms.NumericUpDown()
-        Me.nudExistencia = New System.Windows.Forms.NumericUpDown()
-        Me.btnNuevo = New System.Windows.Forms.Button()
-        Me.btnGuardar = New System.Windows.Forms.Button()
-        Me.btnActualizar = New System.Windows.Forms.Button()
-        Me.btnEliminar = New System.Windows.Forms.Button()
-        Me.lblEstado = New System.Windows.Forms.Label()
-        Me.lblBuscar = New System.Windows.Forms.Label()
-        Me.lblNombre = New System.Windows.Forms.Label()
-        Me.lblCategoria = New System.Windows.Forms.Label()
-        Me.lblPrecio = New System.Windows.Forms.Label()
-        Me.lblExistencia = New System.Windows.Forms.Label()
-        CType(Me.dgvProductos, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.nudPrecio, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.nudExistencia, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
-        Me.txtBuscar.Location = New System.Drawing.Point(78, 22)
-        Me.txtBuscar.Name = "txtBuscar"
-        Me.txtBuscar.Size = New System.Drawing.Size(696, 23)
-        Me.txtBuscar.TabIndex = 0
-        Me.txtBuscar.Anchor = CType(System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right, System.Windows.Forms.AnchorStyles)
-        Me.btnBuscar.Location = New System.Drawing.Point(790, 20)
-        Me.btnBuscar.Name = "btnBuscar"
-        Me.btnBuscar.Size = New System.Drawing.Size(112, 28)
-        Me.btnBuscar.TabIndex = 1
-        Me.btnBuscar.Text = "Buscar"
-        Me.btnBuscar.Anchor = CType(System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right, System.Windows.Forms.AnchorStyles)
-        Me.btnBuscar.UseVisualStyleBackColor = True
-        Me.dgvProductos.Location = New System.Drawing.Point(18, 64)
-        Me.dgvProductos.Name = "dgvProductos"
-        Me.dgvProductos.Size = New System.Drawing.Size(884, 270)
-        Me.dgvProductos.TabIndex = 2
-        Me.dgvProductos.Anchor = CType(System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left Or System.Windows.Forms.AnchorStyles.Right, System.Windows.Forms.AnchorStyles)
-        Me.txtNombre.Location = New System.Drawing.Point(88, 356)
-        Me.txtNombre.Name = "txtNombre"
-        Me.txtNombre.Size = New System.Drawing.Size(380, 23)
-        Me.txtNombre.TabIndex = 3
-        Me.txtNombre.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.cboCategoria.Location = New System.Drawing.Point(592, 356)
-        Me.cboCategoria.Name = "cboCategoria"
-        Me.cboCategoria.Size = New System.Drawing.Size(310, 23)
-        Me.cboCategoria.TabIndex = 4
-        Me.cboCategoria.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.nudPrecio.Location = New System.Drawing.Point(88, 398)
-        Me.nudPrecio.Name = "nudPrecio"
-        Me.nudPrecio.Size = New System.Drawing.Size(160, 23)
-        Me.nudPrecio.TabIndex = 5
-        Me.nudPrecio.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.nudExistencia.Location = New System.Drawing.Point(376, 398)
-        Me.nudExistencia.Name = "nudExistencia"
-        Me.nudExistencia.Size = New System.Drawing.Size(160, 23)
-        Me.nudExistencia.TabIndex = 6
-        Me.nudExistencia.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.btnNuevo.Location = New System.Drawing.Point(18, 448)
-        Me.btnNuevo.Name = "btnNuevo"
-        Me.btnNuevo.Size = New System.Drawing.Size(108, 32)
-        Me.btnNuevo.TabIndex = 7
-        Me.btnNuevo.Text = "Nuevo"
-        Me.btnNuevo.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.btnNuevo.UseVisualStyleBackColor = True
-        Me.btnGuardar.Location = New System.Drawing.Point(138, 448)
-        Me.btnGuardar.Name = "btnGuardar"
-        Me.btnGuardar.Size = New System.Drawing.Size(108, 32)
-        Me.btnGuardar.TabIndex = 8
-        Me.btnGuardar.Text = "Guardar"
-        Me.btnGuardar.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.btnGuardar.UseVisualStyleBackColor = True
-        Me.btnActualizar.Location = New System.Drawing.Point(258, 448)
-        Me.btnActualizar.Name = "btnActualizar"
-        Me.btnActualizar.Size = New System.Drawing.Size(108, 32)
-        Me.btnActualizar.TabIndex = 9
-        Me.btnActualizar.Text = "Actualizar"
-        Me.btnActualizar.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.btnActualizar.UseVisualStyleBackColor = True
-        Me.btnEliminar.Location = New System.Drawing.Point(378, 448)
-        Me.btnEliminar.Name = "btnEliminar"
-        Me.btnEliminar.Size = New System.Drawing.Size(108, 32)
-        Me.btnEliminar.TabIndex = 10
-        Me.btnEliminar.Text = "Eliminar"
-        Me.btnEliminar.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.btnEliminar.UseVisualStyleBackColor = True
-        Me.lblEstado.Location = New System.Drawing.Point(0, 492)
-        Me.lblEstado.Name = "lblEstado"
-        Me.lblEstado.Size = New System.Drawing.Size(920, 28)
-        Me.lblEstado.TabIndex = 11
-        Me.lblEstado.Text = "Listo."
-        Me.lblBuscar.Location = New System.Drawing.Point(18, 25)
-        Me.lblBuscar.Name = "lblBuscar"
-        Me.lblBuscar.Size = New System.Drawing.Size(60, 20)
-        Me.lblBuscar.TabIndex = 12
-        Me.lblBuscar.Text = "Buscar:"
-        Me.lblNombre.Location = New System.Drawing.Point(18, 359)
-        Me.lblNombre.Name = "lblNombre"
-        Me.lblNombre.Size = New System.Drawing.Size(70, 20)
-        Me.lblNombre.TabIndex = 13
-        Me.lblNombre.Text = "Nombre:"
-        Me.lblNombre.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.lblCategoria.Location = New System.Drawing.Point(512, 359)
-        Me.lblCategoria.Name = "lblCategoria"
-        Me.lblCategoria.Size = New System.Drawing.Size(80, 20)
-        Me.lblCategoria.TabIndex = 14
-        Me.lblCategoria.Text = "Categoría:"
-        Me.lblCategoria.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.lblPrecio.Location = New System.Drawing.Point(18, 401)
-        Me.lblPrecio.Name = "lblPrecio"
-        Me.lblPrecio.Size = New System.Drawing.Size(70, 20)
-        Me.lblPrecio.TabIndex = 15
-        Me.lblPrecio.Text = "Precio C$:"
-        Me.lblPrecio.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.lblExistencia.Location = New System.Drawing.Point(280, 401)
-        Me.lblExistencia.Name = "lblExistencia"
-        Me.lblExistencia.Size = New System.Drawing.Size(96, 20)
-        Me.lblExistencia.TabIndex = 16
-        Me.lblExistencia.Text = "Existencia:"
-        Me.lblExistencia.Anchor = CType(System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left, System.Windows.Forms.AnchorStyles)
-        Me.txtNombre.MaxLength = 100
-        Me.cboCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.nudPrecio.DecimalPlaces = 2
-        Me.nudPrecio.Increment = New Decimal(New Integer() {5, 0, 0, 65536})
-        Me.nudPrecio.Maximum = New Decimal(New Integer() {999999, 0, 0, 0})
-        Me.nudExistencia.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
-        Me.lblEstado.AutoSize = False
-        Me.lblEstado.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.lblEstado.Padding = New System.Windows.Forms.Padding(12, 6, 0, 0)
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(920, 520)
-        Me.Controls.Add(Me.lblExistencia)
-        Me.Controls.Add(Me.lblPrecio)
-        Me.Controls.Add(Me.lblCategoria)
-        Me.Controls.Add(Me.lblNombre)
-        Me.Controls.Add(Me.lblBuscar)
-        Me.Controls.Add(Me.lblEstado)
-        Me.Controls.Add(Me.btnEliminar)
-        Me.Controls.Add(Me.btnActualizar)
-        Me.Controls.Add(Me.btnGuardar)
-        Me.Controls.Add(Me.btnNuevo)
-        Me.Controls.Add(Me.nudExistencia)
-        Me.Controls.Add(Me.nudPrecio)
-        Me.Controls.Add(Me.cboCategoria)
-        Me.Controls.Add(Me.txtNombre)
-        Me.Controls.Add(Me.dgvProductos)
-        Me.Controls.Add(Me.btnBuscar)
-        Me.Controls.Add(Me.txtBuscar)
-        Me.MinimumSize = New System.Drawing.Size(936, 559)
-        Me.Name = "FrmProductos"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Inventario de productos - Librería y Papelería Segovia"
-        CType(Me.dgvProductos, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.nudPrecio, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.nudExistencia, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        txtBuscar = New TextBox()
+        btnBuscar = New Button()
+        dgvProductos = New DataGridView()
+        txtNombre = New TextBox()
+        cboCategoria = New ComboBox()
+        nudPrecio = New NumericUpDown()
+        nudExistencia = New NumericUpDown()
+        btnNuevo = New Button()
+        btnGuardar = New Button()
+        btnActualizar = New Button()
+        btnEliminar = New Button()
+        lblEstado = New Label()
+        lblBuscar = New Label()
+        lblNombre = New Label()
+        lblCategoria = New Label()
+        lblPrecio = New Label()
+        lblExistencia = New Label()
+        ComboBox1 = New ComboBox()
+        cboFiltroCategoria = New ComboBox()
+        chkSoloMenor10 = New CheckBox()
+        LbLTotalInventario = New Label()
+        CType(dgvProductos, ComponentModel.ISupportInitialize).BeginInit()
+        CType(nudPrecio, ComponentModel.ISupportInitialize).BeginInit()
+        CType(nudExistencia, ComponentModel.ISupportInitialize).BeginInit()
+        SuspendLayout()
+        ' 
+        ' txtBuscar
+        ' 
+        txtBuscar.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
+        txtBuscar.Location = New Point(78, 22)
+        txtBuscar.Name = "txtBuscar"
+        txtBuscar.Size = New Size(696, 23)
+        txtBuscar.TabIndex = 0
+        ' 
+        ' btnBuscar
+        ' 
+        btnBuscar.Anchor = AnchorStyles.Top Or AnchorStyles.Right
+        btnBuscar.Location = New Point(790, 20)
+        btnBuscar.Name = "btnBuscar"
+        btnBuscar.Size = New Size(112, 28)
+        btnBuscar.TabIndex = 1
+        btnBuscar.Text = "Buscar"
+        btnBuscar.UseVisualStyleBackColor = True
+        ' 
+        ' dgvProductos
+        ' 
+        dgvProductos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        dgvProductos.Location = New Point(18, 64)
+        dgvProductos.Name = "dgvProductos"
+        dgvProductos.Size = New Size(884, 270)
+        dgvProductos.TabIndex = 2
+        ' 
+        ' txtNombre
+        ' 
+        txtNombre.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        txtNombre.Location = New Point(88, 356)
+        txtNombre.MaxLength = 100
+        txtNombre.Name = "txtNombre"
+        txtNombre.Size = New Size(380, 23)
+        txtNombre.TabIndex = 3
+        ' 
+        ' cboCategoria
+        ' 
+        cboCategoria.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        cboCategoria.DropDownStyle = ComboBoxStyle.DropDownList
+        cboCategoria.Location = New Point(592, 356)
+        cboCategoria.Name = "cboCategoria"
+        cboCategoria.Size = New Size(310, 23)
+        cboCategoria.TabIndex = 4
+        ' 
+        ' nudPrecio
+        ' 
+        nudPrecio.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        nudPrecio.DecimalPlaces = 2
+        nudPrecio.Increment = New Decimal(New Integer() {5, 0, 0, 65536})
+        nudPrecio.Location = New Point(88, 398)
+        nudPrecio.Maximum = New Decimal(New Integer() {999999, 0, 0, 0})
+        nudPrecio.Name = "nudPrecio"
+        nudPrecio.Size = New Size(160, 23)
+        nudPrecio.TabIndex = 5
+        ' 
+        ' nudExistencia
+        ' 
+        nudExistencia.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        nudExistencia.Location = New Point(376, 398)
+        nudExistencia.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
+        nudExistencia.Name = "nudExistencia"
+        nudExistencia.Size = New Size(160, 23)
+        nudExistencia.TabIndex = 6
+        ' 
+        ' btnNuevo
+        ' 
+        btnNuevo.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnNuevo.Location = New Point(18, 448)
+        btnNuevo.Name = "btnNuevo"
+        btnNuevo.Size = New Size(108, 32)
+        btnNuevo.TabIndex = 7
+        btnNuevo.Text = "Nuevo"
+        btnNuevo.UseVisualStyleBackColor = True
+        ' 
+        ' btnGuardar
+        ' 
+        btnGuardar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnGuardar.Location = New Point(138, 448)
+        btnGuardar.Name = "btnGuardar"
+        btnGuardar.Size = New Size(108, 32)
+        btnGuardar.TabIndex = 8
+        btnGuardar.Text = "Guardar"
+        btnGuardar.UseVisualStyleBackColor = True
+        ' 
+        ' btnActualizar
+        ' 
+        btnActualizar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnActualizar.Location = New Point(258, 448)
+        btnActualizar.Name = "btnActualizar"
+        btnActualizar.Size = New Size(108, 32)
+        btnActualizar.TabIndex = 9
+        btnActualizar.Text = "Actualizar"
+        btnActualizar.UseVisualStyleBackColor = True
+        ' 
+        ' btnEliminar
+        ' 
+        btnEliminar.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        btnEliminar.Location = New Point(378, 448)
+        btnEliminar.Name = "btnEliminar"
+        btnEliminar.Size = New Size(108, 32)
+        btnEliminar.TabIndex = 10
+        btnEliminar.Text = "Eliminar"
+        btnEliminar.UseVisualStyleBackColor = True
+        ' 
+        ' lblEstado
+        ' 
+        lblEstado.Dock = DockStyle.Bottom
+        lblEstado.Location = New Point(0, 492)
+        lblEstado.Name = "lblEstado"
+        lblEstado.Padding = New Padding(12, 6, 0, 0)
+        lblEstado.Size = New Size(920, 28)
+        lblEstado.TabIndex = 11
+        lblEstado.Text = "Listo."
+        ' 
+        ' lblBuscar
+        ' 
+        lblBuscar.Location = New Point(18, 25)
+        lblBuscar.Name = "lblBuscar"
+        lblBuscar.Size = New Size(60, 20)
+        lblBuscar.TabIndex = 12
+        lblBuscar.Text = "Buscar:"
+        ' 
+        ' lblNombre
+        ' 
+        lblNombre.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        lblNombre.Location = New Point(18, 359)
+        lblNombre.Name = "lblNombre"
+        lblNombre.Size = New Size(70, 20)
+        lblNombre.TabIndex = 13
+        lblNombre.Text = "Nombre:"
+        ' 
+        ' lblCategoria
+        ' 
+        lblCategoria.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        lblCategoria.Location = New Point(512, 359)
+        lblCategoria.Name = "lblCategoria"
+        lblCategoria.Size = New Size(80, 20)
+        lblCategoria.TabIndex = 14
+        lblCategoria.Text = "Categoría:"
+        ' 
+        ' lblPrecio
+        ' 
+        lblPrecio.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        lblPrecio.Location = New Point(18, 401)
+        lblPrecio.Name = "lblPrecio"
+        lblPrecio.Size = New Size(70, 20)
+        lblPrecio.TabIndex = 15
+        lblPrecio.Text = "Precio C$:"
+        ' 
+        ' lblExistencia
+        ' 
+        lblExistencia.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        lblExistencia.Location = New Point(280, 401)
+        lblExistencia.Name = "lblExistencia"
+        lblExistencia.Size = New Size(96, 20)
+        lblExistencia.TabIndex = 16
+        lblExistencia.Text = "Existencia:"
+        ' 
+        ' ComboBox1
+        ' 
+        ComboBox1.FormattingEnabled = True
+        ComboBox1.Location = New Point(0, 0)
+        ComboBox1.Name = "ComboBox1"
+        ComboBox1.Size = New Size(121, 23)
+        ComboBox1.TabIndex = 17
+        ' 
+        ' cboFiltroCategoria
+        ' 
+        cboFiltroCategoria.FormattingEnabled = True
+        cboFiltroCategoria.Location = New Point(535, 448)
+        cboFiltroCategoria.Name = "cboFiltroCategoria"
+        cboFiltroCategoria.Size = New Size(121, 23)
+        cboFiltroCategoria.TabIndex = 18
+        ' 
+        ' chkSoloMenor10
+        ' 
+        chkSoloMenor10.AutoSize = True
+        chkSoloMenor10.Location = New Point(704, 450)
+        chkSoloMenor10.Name = "chkSoloMenor10"
+        chkSoloMenor10.Size = New Size(166, 19)
+        chkSoloMenor10.TabIndex = 19
+        chkSoloMenor10.Text = "Solo existencia menor a 10"
+        chkSoloMenor10.UseVisualStyleBackColor = True
+        ' 
+        ' LbLTotalInventario
+        ' 
+        LbLTotalInventario.AutoSize = True
+        LbLTotalInventario.Location = New Point(535, 492)
+        LbLTotalInventario.Name = "LbLTotalInventario"
+        LbLTotalInventario.Size = New Size(59, 15)
+        LbLTotalInventario.TabIndex = 20
+        LbLTotalInventario.Text = "Total: 0.00"
+        ' 
+        ' FrmProductos
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(920, 520)
+        Controls.Add(LbLTotalInventario)
+        Controls.Add(chkSoloMenor10)
+        Controls.Add(cboFiltroCategoria)
+        Controls.Add(ComboBox1)
+        Controls.Add(lblExistencia)
+        Controls.Add(lblPrecio)
+        Controls.Add(lblCategoria)
+        Controls.Add(lblNombre)
+        Controls.Add(lblBuscar)
+        Controls.Add(lblEstado)
+        Controls.Add(btnEliminar)
+        Controls.Add(btnActualizar)
+        Controls.Add(btnGuardar)
+        Controls.Add(btnNuevo)
+        Controls.Add(nudExistencia)
+        Controls.Add(nudPrecio)
+        Controls.Add(cboCategoria)
+        Controls.Add(txtNombre)
+        Controls.Add(dgvProductos)
+        Controls.Add(btnBuscar)
+        Controls.Add(txtBuscar)
+        MinimumSize = New Size(936, 559)
+        Name = "FrmProductos"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "Inventario de productos - Librería y Papelería Segovia"
+        CType(dgvProductos, ComponentModel.ISupportInitialize).EndInit()
+        CType(nudPrecio, ComponentModel.ISupportInitialize).EndInit()
+        CType(nudExistencia, ComponentModel.ISupportInitialize).EndInit()
+        ResumeLayout(False)
+        PerformLayout()
     End Sub
 
     Friend WithEvents txtBuscar As System.Windows.Forms.TextBox
@@ -192,4 +288,8 @@ Partial Class FrmProductos
     Friend WithEvents lblCategoria As System.Windows.Forms.Label
     Friend WithEvents lblPrecio As System.Windows.Forms.Label
     Friend WithEvents lblExistencia As System.Windows.Forms.Label
+    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents cboFiltroCategoria As ComboBox
+    Friend WithEvents chkSoloMenor10 As CheckBox
+    Friend WithEvents LbLTotalInventario As Label
 End Class

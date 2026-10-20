@@ -17,6 +17,27 @@ Public Class FrmProductos
 
         Try
             Await CargarCategoriasAsync()
+            ' --- TAREA 1: Llenar el combo de FILTRO con "Todas" ---
+            ' (Asumiendo que en el diseñador ya creaste el ComboBox llamado cboFiltroCategoria)
+            Try
+                Using contexto As New AppDbContext()
+                    ' Traemos las categorías de la base de datos
+                    Dim listaCategorias = Await contexto.Categorias.ToListAsync()
+
+                    ' Creamos una lista nueva para agregar la opción "Todas" al principio
+                    Dim listaFiltro As New List(Of Categoria)
+                    listaFiltro.Add(New Categoria With {.Id = 0, .Nombre = "Todas"})
+                    listaFiltro.AddRange(listaCategorias)
+
+                    ' Llenamos el combo
+                    cboFiltroCategoria.DataSource = listaFiltro
+                    cboFiltroCategoria.DisplayMember = "Nombre" ' Lo que se ve en pantalla
+                    cboFiltroCategoria.ValueMember = "Id"       ' El valor que usaremos para filtrar
+                End Using
+            Catch ex As Exception
+                MessageBox.Show("Error al cargar el filtro: " & ex.Message)
+            End Try
+            ' ----------------------------------------------------
             Await CargarProductosAsync()
         Catch ex As Exception
             MostrarError("No fue posible conectar con MariaDB.", ex)
@@ -88,6 +109,17 @@ Public Class FrmProductos
                 ' La consulta se arma por partes; aún no se ejecuta
                 Dim consulta = ctx.Productos.AsNoTracking()
 
+                ' --- TAREA 4: Filtro por Categoría ---
+                If cboFiltroCategoria.SelectedValue IsNot Nothing AndAlso Convert.ToInt32(cboFiltroCategoria.SelectedValue) > 0 Then
+                    Dim idCat As Integer = Convert.ToInt32(cboFiltroCategoria.SelectedValue)
+                    consulta = consulta.Where(Function(p) p.CategoriaId = idCat)
+                End If
+
+                ' --- TAREA 4: Filtro por CheckBox (Existencia menor a 10) ---
+                If chkSoloMenor10.Checked Then
+                    consulta = consulta.Where(Function(p) p.Existencia < 10)
+                End If
+
                 If filtro.Trim() <> "" Then
                     consulta = consulta.Where(Function(p) p.Nombre.Contains(filtro.Trim()))
                 End If
@@ -105,6 +137,9 @@ Public Class FrmProductos
                         .VersionFila = p.VersionFila
                     }).
                     ToListAsync()
+                ' --- TAREA 4: Calcular el Total del Inventario ---
+                Dim totalInventario As Decimal = Await ctx.Productos.SumAsync(Function(p) p.Precio * p.Existencia)
+                LbLTotalInventario.Text = "Total: C$ " & totalInventario.ToString("N2")
 
                 dgvProductos.DataSource = lista
                 FormatearGrilla()
@@ -159,6 +194,12 @@ Public Class FrmProductos
         EstablecerOcupado(True, "Guardando…")
         Try
             Using ctx As New AppDbContext()
+                ' --- TAREA 4: Evitar productos duplicados ---
+                Dim existe As Boolean = Await ctx.Productos.AnyAsync(Function(p) p.Nombre.ToLower() = txtNombre.Text.Trim().ToLower())
+                If existe Then
+                    MessageBox.Show("Ya existe un producto con ese nombre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    Return
+                End If
                 Dim nuevo As New Producto With {
                     .Nombre = txtNombre.Text.Trim(),
                     .CategoriaId = CInt(cboCategoria.SelectedValue),
@@ -267,5 +308,17 @@ Public Class FrmProductos
         LimpiarCampos()
     End Sub
 
+    Private Sub lblEstado_Click(sender As Object, e As EventArgs) Handles lblEstado.Click
 
+    End Sub
+
+    Private Async Sub cboFiltroCategoria_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFiltroCategoria.SelectedIndexChanged
+        Await CargarProductosAsync(txtBuscar.Text)
+
+    End Sub
+
+    Private Async Sub chkSoloMenor10_CheckedChanged(sender As Object, e As EventArgs) Handles chkSoloMenor10.CheckedChanged
+        Await CargarProductosAsync(txtBuscar.Text)
+
+    End Sub
 End Class
