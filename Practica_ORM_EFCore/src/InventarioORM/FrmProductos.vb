@@ -314,4 +314,15 @@ Public Class FrmProductos
             MostrarError("No se pudieron aplicar los filtros.", ex)
         End Try
     End Sub
+
+    Private Async Sub btnCategorias_Click(sender As Object, e As EventArgs) Handles btnCategorias.Click
+
+        Using ventana As New FrmCategorias()
+            ventana.ShowDialog(Me)
+        End Using
+
+        Await CargarCategoriasAsync()
+
+    End Sub
+
 End Class
