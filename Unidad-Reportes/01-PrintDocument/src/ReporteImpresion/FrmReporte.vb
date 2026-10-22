@@ -28,36 +28,92 @@ Public Class FrmReporte
     Private ReadOnly proporciones() As Single = {0.14F, 0.22F, 0.22F, 0.3F, 0.12F}   ' suman 1.0
 
     Private ReadOnly colorAzul As Color = Color.FromArgb(0, 58, 128)
+    Private carreraCargada As String = "Todas"
 
 #End Region
 
 #Region "2. Carga de datos"
 
     Private Sub FrmReporte_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Márgenes en centésimas de pulgada (60 = 0.6")
         pdReporte.DefaultPageSettings.Margins = New Margins(60, 60, 60, 80)
         HabilitarImpresion(False)
+
+        CargarCarreras()
     End Sub
 
-    Private Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
-        Dim sql As String = "SELECT carnet, nombres, apellidos, carrera, promedio " &
-                            "FROM alumnos ORDER BY apellidos, nombres"
+    Private Sub CargarCarreras()
         Try
+            cboCarrera.Items.Clear()
+            cboCarrera.Items.Add("Todas")
+
             Using cn As MySqlConnection = ObtenerConexion()
-                Using da As New MySqlDataAdapter(sql, cn)
-                    tablaAlumnos = New DataTable()
-                    da.Fill(tablaAlumnos)          ' el adaptador abre y cierra la conexión
+                cn.Open()
+
+                Dim sql As String = "SELECT DISTINCT carrera FROM alumnos ORDER BY carrera"
+
+                Using cmd As New MySqlCommand(sql, cn)
+                    Using dr As MySqlDataReader = cmd.ExecuteReader()
+                        While dr.Read()
+                            cboCarrera.Items.Add(dr("carrera").ToString())
+                        End While
+                    End Using
                 End Using
             End Using
 
+            cboCarrera.SelectedIndex = 0
+
+        Catch ex As MySqlException
+            MessageBox.Show("Error al cargar carreras: " & ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnCargar_Click(sender As Object, e As EventArgs) Handles btnCargar.Click
+
+        Dim sql As String =
+        "SELECT carnet, nombres, apellidos, carrera, promedio FROM alumnos"
+
+        Dim carreraSeleccionada As String =
+        If(cboCarrera.SelectedItem Is Nothing,
+           "Todas",
+           cboCarrera.SelectedItem.ToString())
+
+        If carreraSeleccionada <> "Todas" Then
+            sql &= " WHERE carrera = @carrera"
+        End If
+
+        sql &= " ORDER BY apellidos, nombres"
+
+        Try
+            Using cn As MySqlConnection = ObtenerConexion()
+                Using da As New MySqlDataAdapter(sql, cn)
+
+                    If carreraSeleccionada <> "Todas" Then
+                        da.SelectCommand.Parameters.AddWithValue(
+                        "@carrera", carreraSeleccionada)
+                    End If
+
+                    tablaAlumnos = New DataTable()
+                    da.Fill(tablaAlumnos)
+
+                End Using
+            End Using
+
+            carreraCargada = carreraSeleccionada
             dgvAlumnos.DataSource = tablaAlumnos
-            lblEstado.Text = "Registros cargados: " & tablaAlumnos.Rows.Count
+
+            lblEstado.Text = "Registros cargados: " &
+                         tablaAlumnos.Rows.Count
+
             HabilitarImpresion(tablaAlumnos.Rows.Count > 0)
 
         Catch ex As MySqlException
-            MessageBox.Show("Error al consultar MariaDB:" & vbCrLf & ex.Message,
-                            "Base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Error al consultar MySQL:" &
+                        vbCrLf & ex.Message,
+                        "Base de datos",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error)
         End Try
+
     End Sub
 
     Private Sub HabilitarImpresion(valor As Boolean)
@@ -76,20 +132,32 @@ Public Class FrmReporte
     End Sub
 
     Private Sub btnVistaPrevia_Click(sender As Object, e As EventArgs) Handles btnVistaPrevia.Click
+
+        pdReporte.DefaultPageSettings.Landscape = chkHorizontal.Checked
+
         ppdVista.WindowState = FormWindowState.Maximized
-        ppdVista.ShowDialog(Me)          ' dispara BeginPrint → PrintPage… → EndPrint
+        ppdVista.ShowDialog(Me)
+
     End Sub
 
     Private Sub btnImprimir_Click(sender As Object, e As EventArgs) Handles btnImprimir.Click
+
+        pdReporte.DefaultPageSettings.Landscape = chkHorizontal.Checked
+
         If dlgImprimir.ShowDialog(Me) = DialogResult.OK Then
             Try
-                pdReporte.Print()            ' vuelve a disparar BeginPrint → PrintPage… → EndPrint
-                lblEstado.Text = "Documento enviado a: " & pdReporte.PrinterSettings.PrinterName
+                pdReporte.Print()
+                lblEstado.Text = "Documento enviado a: " &
+                             pdReporte.PrinterSettings.PrinterName
+
             Catch ex As InvalidPrinterException
-                MessageBox.Show("Impresora no válida: " & ex.Message, "Impresión",
-                                MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("Impresora no válida: " & ex.Message,
+                            "Impresión",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning)
             End Try
         End If
+
     End Sub
 
 #End Region
@@ -123,7 +191,7 @@ Public Class FrmReporte
             ConfigurarFormato(fCen, StringAlignment.Center)
 
             ' ---- a) Encabezado: logo + título + institución y fecha ----
-            Const ALTO_ENCABEZADO As Single = 55
+            Const ALTO_ENCABEZADO As Single = 80
             If logo IsNot Nothing Then
                 Dim anchoLogo As Single = logo.Width * ALTO_ENCABEZADO / logo.Height
                 g.DrawImage(logo, area.Left, y, anchoLogo, ALTO_ENCABEZADO)
@@ -133,6 +201,9 @@ Public Class FrmReporte
             g.DrawString("Universidad Nacional de Ingeniería · " & Date.Now.ToString("dd/MM/yyyy"),
                          fuentePie, Brushes.DimGray,
                          New RectangleF(area.Left, y + 30, area.Width, 20), fCen)
+            g.DrawString("Carrera: " & carreraCargada,
+             fuenteEncabezado, Brushes.DarkBlue,
+             New RectangleF(area.Left, y + 52, area.Width, 22), fCen)
             y += ALTO_ENCABEZADO + 10
 
             ' ---- b) Fila de títulos de columna ----
@@ -145,7 +216,8 @@ Public Class FrmReporte
 
             ' ---- c) Filas de detalle: mientras haya datos Y quepan en la página ----
             Using fondoAlterno As New SolidBrush(Color.FromArgb(235, 240, 248))
-                Do While filaActual < tablaAlumnos.Rows.Count AndAlso y + altoFila <= area.Bottom
+                Do While filaActual < tablaAlumnos.Rows.Count AndAlso
+         y + altoFila + 35 <= area.Bottom
                     Dim fila As DataRow = tablaAlumnos.Rows(filaActual)
 
                     If filaActual Mod 2 = 1 Then
@@ -163,6 +235,26 @@ Public Class FrmReporte
                 Loop
             End Using
             g.DrawLine(Pens.Gray, area.Left, y, area.Right, y)
+            If filaActual = tablaAlumnos.Rows.Count AndAlso tablaAlumnos.Rows.Count > 0 Then
+
+                Dim suma As Decimal = 0D
+
+                For Each fila As DataRow In tablaAlumnos.Rows
+                    suma += Convert.ToDecimal(fila("promedio"))
+                Next
+
+                Dim promedioGeneral As Decimal = suma / tablaAlumnos.Rows.Count
+
+                Dim textoPromedio As String =
+        "Promedio general: " & promedioGeneral.ToString("N2")
+
+                g.DrawString(textoPromedio,
+                 fuenteEncabezado,
+                 Brushes.DarkBlue,
+                 area.Left,
+                 y + 12)
+
+            End If
 
             ' ---- d) Pie de página (se dibuja dentro del margen inferior) ----
             Dim yPie As Single = area.Bottom + 10
@@ -196,17 +288,38 @@ Public Class FrmReporte
 
     ' Dibuja una fila de celdas repartiendo el ancho según "proporciones"
     Private Sub DibujarFila(g As Graphics, textos() As String, fuente As Font, pincel As Brush,
-                            area As Rectangle, y As Single, alto As Single,
-                            fIzq As StringFormat, fDer As StringFormat)
+                       area As Rectangle, y As Single, alto As Single,
+                       fIzq As StringFormat, fDer As StringFormat)
+
         Dim x As Single = area.Left
+
         For i As Integer = 0 To textos.Length - 1
+
             Dim ancho As Single = area.Width * proporciones(i)
             Dim celda As New RectangleF(x + 4, y, ancho - 8, alto)
-            ' La última columna (Promedio) es numérica: se alinea a la derecha
-            Dim formato As StringFormat = If(i = textos.Length - 1, fDer, fIzq)
-            g.DrawString(textos(i), fuente, pincel, celda, formato)
+
+            Dim formato As StringFormat =
+            If(i = textos.Length - 1, fDer, fIzq)
+
+            Dim pincelActual As Brush = pincel
+
+            ' Colorear únicamente los promedios menores de 75
+            If i = textos.Length - 1 AndAlso pincel Is Brushes.Black Then
+
+                Dim promedio As Decimal
+
+                If Decimal.TryParse(textos(i), promedio) AndAlso promedio < 75D Then
+                    pincelActual = Brushes.Red
+                End If
+
+            End If
+
+            g.DrawString(textos(i), fuente, pincelActual, celda, formato)
+
             x += ancho
+
         Next
+
     End Sub
 
     ' Alineación horizontal + centrado vertical + "…" si el texto no cabe
@@ -215,6 +328,14 @@ Public Class FrmReporte
         f.LineAlignment = StringAlignment.Center
         f.Trimming = StringTrimming.EllipsisCharacter
         f.FormatFlags = StringFormatFlags.NoWrap
+    End Sub
+
+    Private Sub ComboBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboCarrera.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub dgvAlumnos_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAlumnos.CellContentClick
+
     End Sub
 
 #End Region
