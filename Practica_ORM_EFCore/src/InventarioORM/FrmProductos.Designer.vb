@@ -32,7 +32,6 @@ Partial Class FrmProductos
         lblCategoria = New Label()
         lblPrecio = New Label()
         lblExistencia = New Label()
-        ComboBox1 = New ComboBox()
         cboFiltroCategoria = New ComboBox()
         chkSoloMenor10 = New CheckBox()
         LbLTotalInventario = New Label()
@@ -199,13 +198,7 @@ Partial Class FrmProductos
         lblExistencia.TabIndex = 16
         lblExistencia.Text = "Existencia:"
         ' 
-        ' ComboBox1
         ' 
-        ComboBox1.FormattingEnabled = True
-        ComboBox1.Location = New Point(0, 0)
-        ComboBox1.Name = "ComboBox1"
-        ComboBox1.Size = New Size(121, 23)
-        ComboBox1.TabIndex = 17
         ' 
         ' cboFiltroCategoria
         ' 
@@ -236,13 +229,12 @@ Partial Class FrmProductos
         ' 
         ' FrmProductos
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(920, 520)
         Controls.Add(LbLTotalInventario)
         Controls.Add(chkSoloMenor10)
         Controls.Add(cboFiltroCategoria)
-        Controls.Add(ComboBox1)
         Controls.Add(lblExistencia)
         Controls.Add(lblPrecio)
         Controls.Add(lblCategoria)
@@ -288,7 +280,6 @@ Partial Class FrmProductos
     Friend WithEvents lblCategoria As System.Windows.Forms.Label
     Friend WithEvents lblPrecio As System.Windows.Forms.Label
     Friend WithEvents lblExistencia As System.Windows.Forms.Label
-    Friend WithEvents ComboBox1 As ComboBox
     Friend WithEvents cboFiltroCategoria As ComboBox
     Friend WithEvents chkSoloMenor10 As CheckBox
     Friend WithEvents LbLTotalInventario As Label

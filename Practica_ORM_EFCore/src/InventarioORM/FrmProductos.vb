@@ -6,6 +6,8 @@ Public Class FrmProductos
     Private _idSeleccionado As Integer = 0
     ' Versión que el usuario vio al seleccionar: base del control de concurrencia
     Private _versionLeida As Integer = 0
+    ' Evita consultar productos mientras se llenan los filtros.
+    Private _cargandoFiltros As Boolean = True
 
     ' ===================== CARGA INICIAL =====================
     Private Async Sub FrmProductos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -17,45 +19,38 @@ Public Class FrmProductos
 
         Try
             Await CargarCategoriasAsync()
-            ' --- TAREA 1: Llenar el combo de FILTRO con "Todas" ---
-            ' (Asumiendo que en el diseñador ya creaste el ComboBox llamado cboFiltroCategoria)
-            Try
-                Using contexto As New AppDbContext()
-                    ' Traemos las categorías de la base de datos
-                    Dim listaCategorias = Await contexto.Categorias.ToListAsync()
-
-                    ' Creamos una lista nueva para agregar la opción "Todas" al principio
-                    Dim listaFiltro As New List(Of Categoria)
-                    listaFiltro.Add(New Categoria With {.Id = 0, .Nombre = "Todas"})
-                    listaFiltro.AddRange(listaCategorias)
-
-                    ' Llenamos el combo
-                    cboFiltroCategoria.DataSource = listaFiltro
-                    cboFiltroCategoria.DisplayMember = "Nombre" ' Lo que se ve en pantalla
-                    cboFiltroCategoria.ValueMember = "Id"       ' El valor que usaremos para filtrar
-                End Using
-            Catch ex As Exception
-                MessageBox.Show("Error al cargar el filtro: " & ex.Message)
-            End Try
-            ' ----------------------------------------------------
-            Await CargarProductosAsync()
+            Await CargarProductosAsync(txtBuscar.Text)
         Catch ex As Exception
             MostrarError("No fue posible conectar con MariaDB.", ex)
         End Try
     End Sub
 
-    ''' <summary>READ: llena el ComboBox con las categorías.</summary>
+    ''' <summary>READ: llena las categorías de edición y de filtro.</summary>
     Private Async Function CargarCategoriasAsync() As Task
-        Using ctx As New AppDbContext()
-            Dim categorias = Await ctx.Categorias.
-                AsNoTracking().
-                OrderBy(Function(c) c.Nombre).
-                ToListAsync()
+        _cargandoFiltros = True
+        Try
+            Using ctx As New AppDbContext()
+                Dim categorias = Await ctx.Categorias.
+                    AsNoTracking().
+                    OrderBy(Function(c) c.Nombre).
+                    ToListAsync()
 
-            cboCategoria.DisplayMember = NameOf(Categoria.Nombre)
-            cboCategoria.ValueMember = NameOf(Categoria.Id)
-            cboCategoria.DataSource = categorias
-        End Using
+                cboCategoria.DisplayMember = NameOf(Categoria.Nombre)
+                cboCategoria.ValueMember = NameOf(Categoria.Id)
+                cboCategoria.DataSource = categorias
+
+                Dim listaFiltro As New List(Of Categoria)
+                listaFiltro.Add(New Categoria With {.Id = 0, .Nombre = "Todas"})
+                listaFiltro.AddRange(categorias)
+
+                cboFiltroCategoria.DropDownStyle = ComboBoxStyle.DropDownList
+                cboFiltroCategoria.DisplayMember = NameOf(Categoria.Nombre)
+                cboFiltroCategoria.ValueMember = NameOf(Categoria.Id)
+                cboFiltroCategoria.DataSource = listaFiltro
+            End Using
+        Finally
+            _cargandoFiltros = False
+        End Try
     End Function
 
     ' ===================== UTILIDADES =====================
@@ -65,6 +60,8 @@ Public Class FrmProductos
         For Each b In {btnNuevo, btnGuardar, btnActualizar, btnEliminar, btnBuscar}
             b.Enabled = Not ocupado
         Next
+        cboFiltroCategoria.Enabled = Not ocupado
+        chkSoloMenor10.Enabled = Not ocupado
         If mensaje <> "" Then lblEstado.Text = mensaje
     End Sub
 
@@ -218,7 +215,7 @@ Public Class FrmProductos
             EstablecerOcupado(False)
         End Try
 
-        Await CargarProductosAsync()
+        Await CargarProductosAsync(txtBuscar.Text)
         LimpiarCampos()
     End Sub
 
@@ -264,7 +261,7 @@ Public Class FrmProductos
                             vbCrLf & "Se mostrarán los datos actuales; revise y vuelva a intentarlo.",
                             "Conflicto de concurrencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
-        Await CargarProductosAsync()
+        Await CargarProductosAsync(txtBuscar.Text)
     End Sub
 
     ' ===================== DELETE =====================
@@ -304,21 +301,17 @@ Public Class FrmProductos
             MessageBox.Show("El producto fue modificado o eliminado por otro usuario.",
                             "Conflicto de concurrencia", MessageBoxButtons.OK, MessageBoxIcon.Warning)
         End If
-        Await CargarProductosAsync()
+        Await CargarProductosAsync(txtBuscar.Text)
         LimpiarCampos()
     End Sub
 
-    Private Sub lblEstado_Click(sender As Object, e As EventArgs) Handles lblEstado.Click
+    Private Async Sub Filtros_Cambiados(sender As Object, e As EventArgs) Handles cboFiltroCategoria.SelectedIndexChanged, chkSoloMenor10.CheckedChanged
+        If _cargandoFiltros OrElse cboFiltroCategoria.SelectedValue Is Nothing Then Return
 
-    End Sub
-
-    Private Async Sub cboFiltroCategoria_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFiltroCategoria.SelectedIndexChanged
-        Await CargarProductosAsync(txtBuscar.Text)
-
-    End Sub
-
-    Private Async Sub chkSoloMenor10_CheckedChanged(sender As Object, e As EventArgs) Handles chkSoloMenor10.CheckedChanged
-        Await CargarProductosAsync(txtBuscar.Text)
-
+        Try
+            Await CargarProductosAsync(txtBuscar.Text)
+        Catch ex As Exception
+            MostrarError("No se pudieron aplicar los filtros.", ex)
+        End Try
     End Sub
 End Class
