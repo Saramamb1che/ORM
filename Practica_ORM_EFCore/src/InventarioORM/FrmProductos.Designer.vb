@@ -36,6 +36,7 @@ Partial Class FrmProductos
         cboFiltroCategoria = New ComboBox()
         chkSoloMenor10 = New CheckBox()
         LbLTotalInventario = New Label()
+        btnCategorias = New Button()
         CType(dgvProductos, ComponentModel.ISupportInitialize).BeginInit()
         CType(nudPrecio, ComponentModel.ISupportInitialize).BeginInit()
         CType(nudExistencia, ComponentModel.ISupportInitialize).BeginInit()
@@ -220,7 +221,7 @@ Partial Class FrmProductos
         chkSoloMenor10.AutoSize = True
         chkSoloMenor10.Location = New Point(704, 450)
         chkSoloMenor10.Name = "chkSoloMenor10"
-        chkSoloMenor10.Size = New Size(166, 19)
+        chkSoloMenor10.Size = New Size(165, 19)
         chkSoloMenor10.TabIndex = 19
         chkSoloMenor10.Text = "Solo existencia menor a 10"
         chkSoloMenor10.UseVisualStyleBackColor = True
@@ -230,15 +231,26 @@ Partial Class FrmProductos
         LbLTotalInventario.AutoSize = True
         LbLTotalInventario.Location = New Point(535, 492)
         LbLTotalInventario.Name = "LbLTotalInventario"
-        LbLTotalInventario.Size = New Size(59, 15)
+        LbLTotalInventario.Size = New Size(60, 15)
         LbLTotalInventario.TabIndex = 20
         LbLTotalInventario.Text = "Total: 0.00"
+        ' 
+        ' btnCategorias
+        ' 
+        btnCategorias.AutoSize = True
+        btnCategorias.Location = New Point(636, 398)
+        btnCategorias.Name = "btnCategorias"
+        btnCategorias.Size = New Size(149, 25)
+        btnCategorias.TabIndex = 21
+        btnCategorias.Text = "Gestionar categorías"
+        btnCategorias.UseVisualStyleBackColor = True
         ' 
         ' FrmProductos
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(920, 520)
+        Controls.Add(btnCategorias)
         Controls.Add(LbLTotalInventario)
         Controls.Add(chkSoloMenor10)
         Controls.Add(cboFiltroCategoria)
@@ -292,4 +304,5 @@ Partial Class FrmProductos
     Friend WithEvents cboFiltroCategoria As ComboBox
     Friend WithEvents chkSoloMenor10 As CheckBox
     Friend WithEvents LbLTotalInventario As Label
+    Friend WithEvents btnCategorias As Button
 End Class

@@ -321,4 +321,15 @@ Public Class FrmProductos
         Await CargarProductosAsync(txtBuscar.Text)
 
     End Sub
+
+    Private Async Sub btnCategorias_Click(sender As Object, e As EventArgs) Handles btnCategorias.Click
+
+        Using ventana As New FrmCategorias()
+            ventana.ShowDialog(Me)
+        End Using
+
+        Await CargarCategoriasAsync()
+
+    End Sub
+
 End Class
