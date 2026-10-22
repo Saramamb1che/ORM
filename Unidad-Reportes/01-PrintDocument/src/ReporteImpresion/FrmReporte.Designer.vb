@@ -21,128 +21,161 @@ Partial Class FrmReporte
     'Se puede modificar usando el Diseñador; no lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.lblTitulo = New System.Windows.Forms.Label()
-        Me.btnCargar = New System.Windows.Forms.Button()
-        Me.btnConfigurar = New System.Windows.Forms.Button()
-        Me.btnVistaPrevia = New System.Windows.Forms.Button()
-        Me.btnImprimir = New System.Windows.Forms.Button()
-        Me.dgvAlumnos = New System.Windows.Forms.DataGridView()
-        Me.lblEstado = New System.Windows.Forms.Label()
-        Me.pdReporte = New System.Drawing.Printing.PrintDocument()
-        Me.ppdVista = New System.Windows.Forms.PrintPreviewDialog()
-        Me.psdPagina = New System.Windows.Forms.PageSetupDialog()
-        Me.dlgImprimir = New System.Windows.Forms.PrintDialog()
-        CType(Me.dgvAlumnos, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
-        '
-        'lblTitulo
-        '
-        Me.lblTitulo.AutoSize = True
-        Me.lblTitulo.Font = New System.Drawing.Font("Segoe UI", 14.0!, System.Drawing.FontStyle.Bold)
-        Me.lblTitulo.Location = New System.Drawing.Point(16, 12)
-        Me.lblTitulo.Name = "lblTitulo"
-        Me.lblTitulo.Text = "Listado de alumnos – Impresión"
-        '
-        'btnCargar
-        '
-        Me.btnCargar.Location = New System.Drawing.Point(16, 52)
-        Me.btnCargar.Name = "btnCargar"
-        Me.btnCargar.Size = New System.Drawing.Size(150, 34)
-        Me.btnCargar.TabIndex = 0
-        Me.btnCargar.Text = "Cargar datos"
-        Me.btnCargar.UseVisualStyleBackColor = True
-        '
-        'btnConfigurar
-        '
-        Me.btnConfigurar.Location = New System.Drawing.Point(176, 52)
-        Me.btnConfigurar.Name = "btnConfigurar"
-        Me.btnConfigurar.Size = New System.Drawing.Size(150, 34)
-        Me.btnConfigurar.TabIndex = 1
-        Me.btnConfigurar.Text = "Configurar página"
-        Me.btnConfigurar.UseVisualStyleBackColor = True
-        '
-        'btnVistaPrevia
-        '
-        Me.btnVistaPrevia.Location = New System.Drawing.Point(336, 52)
-        Me.btnVistaPrevia.Name = "btnVistaPrevia"
-        Me.btnVistaPrevia.Size = New System.Drawing.Size(150, 34)
-        Me.btnVistaPrevia.TabIndex = 2
-        Me.btnVistaPrevia.Text = "Vista previa"
-        Me.btnVistaPrevia.UseVisualStyleBackColor = True
-        '
-        'btnImprimir
-        '
-        Me.btnImprimir.Location = New System.Drawing.Point(496, 52)
-        Me.btnImprimir.Name = "btnImprimir"
-        Me.btnImprimir.Size = New System.Drawing.Size(150, 34)
-        Me.btnImprimir.TabIndex = 3
-        Me.btnImprimir.Text = "Imprimir"
-        Me.btnImprimir.UseVisualStyleBackColor = True
-        '
-        'dgvAlumnos
-        '
-        Me.dgvAlumnos.AllowUserToAddRows = False
-        Me.dgvAlumnos.AllowUserToDeleteRows = False
-        Me.dgvAlumnos.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvAlumnos.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
-        Me.dgvAlumnos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvAlumnos.Location = New System.Drawing.Point(16, 96)
-        Me.dgvAlumnos.Name = "dgvAlumnos"
-        Me.dgvAlumnos.ReadOnly = True
-        Me.dgvAlumnos.RowHeadersVisible = False
-        Me.dgvAlumnos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvAlumnos.Size = New System.Drawing.Size(868, 420)
-        Me.dgvAlumnos.TabIndex = 4
-        '
-        'lblEstado
-        '
-        Me.lblEstado.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblEstado.AutoSize = True
-        Me.lblEstado.Location = New System.Drawing.Point(16, 528)
-        Me.lblEstado.Name = "lblEstado"
-        Me.lblEstado.Text = "Sin datos cargados"
-        '
-        'pdReporte
-        '
-        Me.pdReporte.DocumentName = "Listado de alumnos"
-        '
-        'ppdVista
-        '
-        Me.ppdVista.Document = Me.pdReporte
-        Me.ppdVista.Name = "ppdVista"
-        Me.ppdVista.UseAntiAlias = True
-        '
-        'psdPagina
-        '
-        Me.psdPagina.Document = Me.pdReporte
-        Me.psdPagina.EnableMetric = True
-        '
-        'dlgImprimir
-        '
-        Me.dlgImprimir.Document = Me.pdReporte
-        Me.dlgImprimir.UseEXDialog = True
-        '
-        'FrmReporte
-        '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(900, 560)
-        Me.Controls.Add(Me.lblTitulo)
-        Me.Controls.Add(Me.btnCargar)
-        Me.Controls.Add(Me.btnConfigurar)
-        Me.Controls.Add(Me.btnVistaPrevia)
-        Me.Controls.Add(Me.btnImprimir)
-        Me.Controls.Add(Me.dgvAlumnos)
-        Me.Controls.Add(Me.lblEstado)
-        Me.MinimumSize = New System.Drawing.Size(760, 480)
-        Me.Name = "FrmReporte"
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Reporte de alumnos – PrintDocument"
-        CType(Me.dgvAlumnos, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmReporte))
+        lblTitulo = New Label()
+        btnCargar = New Button()
+        btnConfigurar = New Button()
+        btnVistaPrevia = New Button()
+        btnImprimir = New Button()
+        dgvAlumnos = New DataGridView()
+        lblEstado = New Label()
+        pdReporte = New Printing.PrintDocument()
+        ppdVista = New PrintPreviewDialog()
+        psdPagina = New PageSetupDialog()
+        dlgImprimir = New PrintDialog()
+        cboCarrera = New ComboBox()
+        chkHorizontal = New CheckBox()
+        CType(dgvAlumnos, ComponentModel.ISupportInitialize).BeginInit()
+        SuspendLayout()
+        ' 
+        ' lblTitulo
+        ' 
+        lblTitulo.AutoSize = True
+        lblTitulo.Font = New Font("Segoe UI", 14F, FontStyle.Bold)
+        lblTitulo.Location = New Point(16, 12)
+        lblTitulo.Name = "lblTitulo"
+        lblTitulo.Size = New Size(294, 25)
+        lblTitulo.TabIndex = 0
+        lblTitulo.Text = "Listado de alumnos – Impresión"
+        ' 
+        ' btnCargar
+        ' 
+        btnCargar.Location = New Point(16, 52)
+        btnCargar.Name = "btnCargar"
+        btnCargar.Size = New Size(150, 34)
+        btnCargar.TabIndex = 0
+        btnCargar.Text = "Cargar datos"
+        btnCargar.UseVisualStyleBackColor = True
+        ' 
+        ' btnConfigurar
+        ' 
+        btnConfigurar.Location = New Point(176, 52)
+        btnConfigurar.Name = "btnConfigurar"
+        btnConfigurar.Size = New Size(150, 34)
+        btnConfigurar.TabIndex = 1
+        btnConfigurar.Text = "Configurar página"
+        btnConfigurar.UseVisualStyleBackColor = True
+        ' 
+        ' btnVistaPrevia
+        ' 
+        btnVistaPrevia.Location = New Point(336, 52)
+        btnVistaPrevia.Name = "btnVistaPrevia"
+        btnVistaPrevia.Size = New Size(150, 34)
+        btnVistaPrevia.TabIndex = 2
+        btnVistaPrevia.Text = "Vista previa"
+        btnVistaPrevia.UseVisualStyleBackColor = True
+        ' 
+        ' btnImprimir
+        ' 
+        btnImprimir.Location = New Point(496, 52)
+        btnImprimir.Name = "btnImprimir"
+        btnImprimir.Size = New Size(150, 34)
+        btnImprimir.TabIndex = 3
+        btnImprimir.Text = "Imprimir"
+        btnImprimir.UseVisualStyleBackColor = True
+        ' 
+        ' dgvAlumnos
+        ' 
+        dgvAlumnos.AllowUserToAddRows = False
+        dgvAlumnos.AllowUserToDeleteRows = False
+        dgvAlumnos.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+        dgvAlumnos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvAlumnos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvAlumnos.Location = New Point(16, 96)
+        dgvAlumnos.Name = "dgvAlumnos"
+        dgvAlumnos.ReadOnly = True
+        dgvAlumnos.RowHeadersVisible = False
+        dgvAlumnos.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvAlumnos.Size = New Size(868, 420)
+        dgvAlumnos.TabIndex = 4
+        ' 
+        ' lblEstado
+        ' 
+        lblEstado.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
+        lblEstado.AutoSize = True
+        lblEstado.Location = New Point(16, 528)
+        lblEstado.Name = "lblEstado"
+        lblEstado.Size = New Size(106, 15)
+        lblEstado.TabIndex = 5
+        lblEstado.Text = "Sin datos cargados"
+        ' 
+        ' pdReporte
+        ' 
+        pdReporte.DocumentName = "Listado de alumnos"
+        ' 
+        ' ppdVista
+        ' 
+        ppdVista.AutoScrollMargin = New Size(0, 0)
+        ppdVista.AutoScrollMinSize = New Size(0, 0)
+        ppdVista.ClientSize = New Size(400, 300)
+        ppdVista.Document = pdReporte
+        ppdVista.Enabled = True
+        ppdVista.Icon = CType(resources.GetObject("ppdVista.Icon"), Icon)
+        ppdVista.Name = "ppdVista"
+        ppdVista.UseAntiAlias = True
+        ppdVista.Visible = False
+        ' 
+        ' psdPagina
+        ' 
+        psdPagina.Document = pdReporte
+        psdPagina.EnableMetric = True
+        ' 
+        ' dlgImprimir
+        ' 
+        dlgImprimir.Document = pdReporte
+        dlgImprimir.UseEXDialog = True
+        ' 
+        ' cboCarrera
+        ' 
+        cboCarrera.DropDownStyle = ComboBoxStyle.DropDownList
+        cboCarrera.DropDownWidth = 200
+        cboCarrera.FormattingEnabled = True
+        cboCarrera.Location = New Point(652, 59)
+        cboCarrera.Name = "cboCarrera"
+        cboCarrera.Size = New Size(121, 23)
+        cboCarrera.TabIndex = 6
+        ' 
+        ' chkHorizontal
+        ' 
+        chkHorizontal.AutoSize = True
+        chkHorizontal.Location = New Point(790, 61)
+        chkHorizontal.Name = "chkHorizontal"
+        chkHorizontal.Size = New Size(81, 19)
+        chkHorizontal.TabIndex = 7
+        chkHorizontal.Text = "Horizontal"
+        chkHorizontal.UseVisualStyleBackColor = True
+        ' 
+        ' FrmReporte
+        ' 
+        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleMode = AutoScaleMode.Font
+        ClientSize = New Size(900, 560)
+        Controls.Add(chkHorizontal)
+        Controls.Add(cboCarrera)
+        Controls.Add(lblTitulo)
+        Controls.Add(btnCargar)
+        Controls.Add(btnConfigurar)
+        Controls.Add(btnVistaPrevia)
+        Controls.Add(btnImprimir)
+        Controls.Add(dgvAlumnos)
+        Controls.Add(lblEstado)
+        MinimumSize = New Size(760, 480)
+        Name = "FrmReporte"
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "Reporte de alumnos – PrintDocument"
+        CType(dgvAlumnos, ComponentModel.ISupportInitialize).EndInit()
+        ResumeLayout(False)
+        PerformLayout()
     End Sub
 
     Friend WithEvents lblTitulo As System.Windows.Forms.Label
@@ -156,4 +189,6 @@ Partial Class FrmReporte
     Friend WithEvents ppdVista As System.Windows.Forms.PrintPreviewDialog
     Friend WithEvents psdPagina As System.Windows.Forms.PageSetupDialog
     Friend WithEvents dlgImprimir As System.Windows.Forms.PrintDialog
+    Friend WithEvents cboCarrera As ComboBox
+    Friend WithEvents chkHorizontal As CheckBox
 End Class
